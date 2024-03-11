@@ -1,0 +1,27 @@
+# Fungsi untuk menerima pesanan dan menghitung total harga dengan menambahkan pesanan ke keranjang
+def pesan_makanan(menu):
+    pesanan = ""
+    total_harga = 0
+    while True:
+        pesan = input("\nSilahkan ketik pesanan Anda : ")
+        if pesan.lower() == "selesai":
+            break
+        else:
+            current = menu.head
+            found = False
+            while current:
+                if current.data.lower() == pesan.lower():
+                    jumlah = int(input(f"Masukkan jumlah yang ingin dipesan: "))
+                    pesanan += f"{current.data} - {current.harga} x {jumlah}\n"
+                    total_harga += current.harga * jumlah
+                    found = True
+                    break
+                current = current.next
+            if not found:
+                print("Makanan tidak ditemukan dalam menu.\n")
+                print("Pilih menu yang ada dibawah ini: ")
+                menu.tampilkan_menu()
+                continue
+        print("===== (Ketik 'selesai' untuk menyelesaikan pesanan) =====")
+        print(f"||>> {current.data} sebanyak {jumlah} sudah ditambahkan ke keranjang <<||")
+    return pesanan, total_harga
